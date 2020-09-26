@@ -1,0 +1,72 @@
+.header {
+    color: white;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+    /* to create space between items*/
+    overflow-x: scroll;
+    /* background-color: black; */
+}
+
+
+/* Hide Scroll Bar for Chrome, Safari and Opera */
+
+.header::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Hide Scroll Bar for Chrome, Safari and Opera */
+
+.header {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Frefox */
+}
+
+.header__icon>.MuiSvgIcon-root {
+    /* Allows items to be centered naturally*/
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header__icon--active>p {
+    display: inline-flex !important;
+}
+
+.header__icon:hover>p {
+    display: inline-flex;
+}
+
+.header__icon>p {
+    display: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: small;
+}
+
+.header__icon {
+    display: flex;
+    /* Makes the text go below the icons */
+    flex-direction: column;
+    /* change the cursor when hovering over items*/
+    cursor: pointer;
+    width: 100px;
+}
+
+.header__icons {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.header>img {
+    object-fit: contain;
+    /* to fit the ascpect ratio*/
+    height: 80px;
+}
