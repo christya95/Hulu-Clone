@@ -1,15 +1,36 @@
 import React from 'react'
 import './VideoCard.css'
+import TextTruncate from "react-text-truncate";
+import {ThumbUpSharp} from "@material-ui/icons";
 
-function VideoCard( movie ) {
+//base URL for the images in the TMDB API
+const base_url = "https://image.tmdb.org/t/p/original/"
+
+//img src is the base url + the movie props backdrop
+//TextTruncate component is a tool used to minimize text of a selected element and it's content
+function VideoCard( {movie} ) {
     return (
-        <div class='videoCard'>
+        <div className='videoCard'>
+
             
-            <img src="https://www.benjerry.com/files/live/sites/systemsite/files/flavors/products/us/pint/half-baked-detail.png" alt=""/>
+            <img src={`${base_url}${movie.backdrop_path || movie.poster_path}`} alt="movie poster"/>
             
-            <p>This is a film about icecream</p>
-            <h2>Movie title</h2>
-            <p>Number of likes...</p>
+            <TextTruncate
+                line={2}
+                element="p"
+                truncateText="..."
+                text={movie.overview}
+            />
+
+            <h2>{movie.title || movie.original_name}</h2>
+
+            <p className= "videoCard__stats">
+                {movie.media_type && `${movie.media_type} ●`}
+                { "Movie Release: " + (movie.release_date || movie.first_air_date)} &nbsp; ● &nbsp;
+                <ThumbUpSharp />  &nbsp;
+                {movie.vote_count}
+            </p>
+            
         </div>
     )
 }

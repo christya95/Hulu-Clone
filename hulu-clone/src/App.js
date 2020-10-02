@@ -5,7 +5,11 @@ import Nav from './Nav';
 import Results from './Results';
 
 function App() {
+
+    //const [selectedOption, setSelectedOption]
+
     return ( <div className = "app">
+
         <Header />
         
         <Nav />

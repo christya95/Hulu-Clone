@@ -4,7 +4,7 @@ import VideoCard from './VideoCard';
 import axios from './axios';
 import requests from './requests';
 
-function Results() {
+function Results({selectedOption}) {
 
     //State holds variables of the component that can be modified. Whenever, a state variable is updated the component is re-rendered.
 
@@ -17,7 +17,8 @@ function Results() {
             async function fetchData() {
                 const request = await axios.get(requests.fetchActionMovies)
                 console.log(request);
-                //setMovies(request.data.results);                
+                setMovies(request.data.results); 
+                return requests;               
             }
 
             fetchData();
@@ -34,7 +35,9 @@ function Results() {
                 
                 //For loops but for props
                 movies.map((movie) => (
-                <VideoCard />
+
+                //pass in the movie to the component as a prop
+                <VideoCard movie={movie}/>
                 //console.log(movie)
             ))}
         </div>
