@@ -15,14 +15,43 @@ function Results({selectedOption}) {
         useEffect(() => {
             //run this code once the Results component loads/mounts
             async function fetchData() {
-                const request = await axios.get(requests.fetchActionMovies)
-                console.log(request);
-                setMovies(request.data.results); 
-                return requests;               
+                console.log(selectedOption)
+                //We iterate through selectedOption (what we select from Nav)
+                //each index of selectOption is fetchUrlOption
+                //use axios to get the fetch request from TMDB using fetchUrlOption
+                //We then store the promise from axios.get() into "request"
+                //then request is stored into results array
+                let results = selectedOption.map((fetchUrlOption)=> {
+                    const request = axios.get(fetchUrlOption)
+                    console.log(request)
+                    return request;
+                })
+                //We return an array of data, not an array of promises
+                return await Promise.all(results);              
             }
 
-            fetchData();
-        }, [])
+            //We will set each movie/tv shows to "movies" (member of the component)
+            async function setData() {
+                //Retrieve the array of Data from fetchData function
+                let arrayOfData = await fetchData();
+                console.log(arrayOfData)
+                let allDataResults = [];
+                //For each URL response form the API (either Movies or TV)
+                //we will collect the data.results from each and store those 
+                //into one giant array called "allDataResults"
+                arrayOfData.forEach((dataObject)=> {
+                    console.log(dataObject)
+                    allDataResults = allDataResults.concat(dataObject.data.results);
+                    console.log(allDataResults)
+                })
+                console.log(allDataResults);
+                //Assign the giant array into "movies"
+                setMovies(allDataResults); 
+            }
+
+            setData();
+            //selectedOption is a dependancy from outside, and useEffect needs it before it is run
+        }, [selectedOption])
         
         // useEffect(() => {
         //         //run this code EVERY the Results component loads/mounts
@@ -34,10 +63,12 @@ function Results({selectedOption}) {
                 //The fetchData requsts is stored into movies (State variable), the .map function iterates (for loop) through movies. Then each index in movies is represented by movie. Movie is then passed into the component called "VideoCard"
                 
                 //For loops but for props
-                movies.map((movie) => (
+                movies.map((movie,index) => (
 
                 //pass in the movie to the component as a prop
-                <VideoCard movie={movie}/>
+                <VideoCard movie={movie}
+                           mediaType={index < 20 ? 'movie' : 'tv'}
+                />
                 //console.log(movie)
             ))}
         </div>
