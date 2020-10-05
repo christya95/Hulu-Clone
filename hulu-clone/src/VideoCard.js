@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import './VideoCard.css'
 import TextTruncate from "react-text-truncate";
 import {ThumbUpSharp} from "@material-ui/icons";
@@ -8,9 +8,9 @@ const base_url = "https://image.tmdb.org/t/p/original/"
 
 //img src is the base url + the movie props backdrop
 //TextTruncate component is a tool used to minimize text of a selected element and it's content
-function VideoCard( {movie,mediaType} ) {
+const VideoCard = forwardRef(( {movie,mediaType}, ref ) => {
     return (
-        <div className='videoCard'>
+        <div ref={ref} className='videoCard'>
 
             
             <img src={`${base_url}${movie.backdrop_path || movie.poster_path}`} alt="movie poster"/>
@@ -33,6 +33,6 @@ function VideoCard( {movie,mediaType} ) {
             
         </div>
     )
-}
+})
 
 export default VideoCard

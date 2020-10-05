@@ -3,6 +3,7 @@ import './Results.css';
 import VideoCard from './VideoCard';
 import axios from './axios';
 import requests from './requests';
+import FlipMove from 'react-flip-move';
 
 function Results({selectedOption}) {
 
@@ -53,24 +54,34 @@ function Results({selectedOption}) {
             //selectedOption is a dependancy from outside, and useEffect needs it before it is run
         }, [selectedOption])
         
+
+
         // useEffect(() => {
         //         //run this code EVERY the Results component loads/mounts
         //     }, )
 
-        return (        
-            <div className="results">
-            {
-                //The fetchData requsts is stored into movies (State variable), the .map function iterates (for loop) through movies. Then each index in movies is represented by movie. Movie is then passed into the component called "VideoCard"
+
+
+
+        //The fetchData requsts is stored into movies (State variable), the .map function iterates (for loop) through movies. Then each index in movies is represented by movie. Movie is then passed into the component called "VideoCard"
                 
                 //For loops but for props
-                movies.map((movie,index) => (
-
                 //pass in the movie to the component as a prop
-                <VideoCard movie={movie}
+        return (        
+            <div className="results">
+            
+                <FlipMove>
+                   
+                {movies.map((movie,index) => (
+
+                
+                <VideoCard key={movie.id} movie={movie}
                            mediaType={index < 20 ? 'movie' : 'tv'}
                 />
-                //console.log(movie)
-            ))}
+                ))} 
+                </FlipMove>
+
+                
         </div>
     )
 }

@@ -1,4 +1,6 @@
-.results {
+/* Must look in all div children becase of flip-move */
+
+.results>div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
